@@ -1,5 +1,5 @@
 // tscan
-package mains
+package main
 
 import (
 	"bufio"
@@ -36,7 +36,7 @@ func scanDiapazon(ch chan storage.IpItem, quit chan uint32, ipstart, ipend uint3
 		} else {
 			hello, err := bufio.NewReader(conn).ReadString(':')
 			if err == nil {
-				output, _ := iconv.ConvertString(hello, "windows-1252", "utf-8")
+				output, _ := iconv.ConvertString(hello, "latin1", "utf-8")
 				ipItem.Hello = output
 				conn.Close()
 				ch <- ipItem

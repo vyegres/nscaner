@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/vyegres/tServer/server/storage"
+	"github.com/vyegres/nscaner/server/storage"
 	"net"
 	"net/rpc"
 	"net/rpc/jsonrpc"
@@ -45,6 +45,10 @@ func main() {
 		if err != nil {
 			continue
 		}
-		jsonrpc.ServeConn(conn)
+		go func(conn net.Conn) {
+			jsonrpc.ServeConn(conn)
+			//			conn.CloseWrite()
+		}(conn)
+
 	}
 }
